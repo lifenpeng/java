@@ -1,0 +1,39 @@
+package my_app;
+import java.sql.*;
+
+public class app {
+	
+	// JDBC 驱动名及数据库 URL
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+    static final String DB_URL = "jdbc:mysql://localhost:3306/RUNOOB";
+ 
+    // 数据库的用户名与密码，需要根据自己的设置
+    static final String USER = "root";
+    static final String PASS = "123456";
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+        String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
+        String DB_URL = "jdbc:mysql://localhost:3306?useSSL=false&serverTimezone=Asia/Shanghai";
+        String DB_USERNAME = "root";
+        String DB_PASSWORD = "1170275451";
+         
+        try {
+            Class.forName(DB_DRIVER);
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+            Statement statement = connection.createStatement();
+            statement.execute("USE `world`");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `country`");
+            while(resultSet.next()) {
+                System.out.println(resultSet.getString("Name"));
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+	}
+
+}
